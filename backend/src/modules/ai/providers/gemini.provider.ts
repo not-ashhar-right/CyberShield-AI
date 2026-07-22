@@ -101,7 +101,7 @@ export class GeminiProvider implements AIProvider {
     const prompt = buildCitizenAdvicePrompt(context);
     return this.analyzeText(
       prompt,
-      "You are AEGIS, a friendly cybersecurity assistant for Indian citizens. Reply in simple language.",
+      "You are DRISHTI, a friendly cybersecurity assistant for Indian citizens. Reply in simple language.",
     );
   }
 

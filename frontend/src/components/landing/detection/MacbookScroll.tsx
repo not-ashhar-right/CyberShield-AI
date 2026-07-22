@@ -222,7 +222,7 @@ function DashboardScreen({ progress }: { progress: number }) {
           <div className="w-1.5 h-1.5 rounded-full bg-[#EC9AA3] animate-pulse" />
           <span className="text-[7px] text-[#B6B8C4]">247 citizens protected today</span>
         </div>
-        <span className="text-[7px] text-[#EC9AA3] font-medium">AEGIS Active</span>
+        <span className="text-[7px] text-[#EC9AA3] font-medium">DRISHTI Active</span>
       </div>
     </div>
   );

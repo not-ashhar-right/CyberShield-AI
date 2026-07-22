@@ -177,7 +177,7 @@ export function FinaleSection() {
           transition={{ duration: 0.5, delay: 3.8, ease }}
         >
           <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#EC9AA3] to-[#F3B3BA] flex items-center justify-center flex-shrink-0">
-            <span className="text-[9px] font-bold text-[#050508]">A</span>
+            <span className="text-[9px] font-bold text-[#050508]">D</span>
           </div>
           <p className="text-xs text-[#B6B8C4] italic leading-relaxed">
             &ldquo;We don&apos;t wait for cybercrime. We prevent it.&rdquo;

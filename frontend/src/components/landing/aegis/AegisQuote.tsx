@@ -50,14 +50,14 @@ export function AegisQuote({ reducedMotion }: AegisQuoteProps) {
           ${reducedMotion ? "" : "opacity-0"}
         `}
         role="figure"
-        aria-label="Quote from AEGIS, CyberShield AI Guardian"
+        aria-label="Quote from DRISHTI, CyberShield AI Guardian"
       >
         <blockquote className="text-lg sm:text-xl text-[#F8F8FA] leading-relaxed italic">
           &ldquo;I don&apos;t just detect cyber threats. I understand them.<br />
           I don&apos;t just analyze data. I protect people.&rdquo;
         </blockquote>
         <cite className="mt-4 block text-sm font-semibold text-[#B6B8C4] not-italic">
-          — AEGIS
+          — DRISHTI
         </cite>
 
         {/* Decorative accent */}

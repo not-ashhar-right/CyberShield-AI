@@ -14,7 +14,7 @@ const roles = [
     tagline: "Your personal cyber guardian",
     description:
       "Protect yourself and your family from phishing, UPI fraud, fake websites and social engineering attacks. CyberShield AI scans threats in real time and explains every risk in plain language.",
-    features: ["Scan messages, URLs & UPI IDs", "Report scams to law enforcement", "Evidence upload & AI analysis", "AEGIS AI assistant"],
+    features: ["Scan messages, URLs & UPI IDs", "Report scams to law enforcement", "Evidence upload & AI analysis", "DRISHTI AI assistant"],
     canvasColors: [[236, 154, 163], [243, 179, 186]] as number[][],
     animationSpeed: 4,
     accentColor: "#EC9AA3",
@@ -31,18 +31,6 @@ const roles = [
     animationSpeed: 3.5,
     accentColor: "#60a5fa",
     locked: false,
-  },
-  {
-    id: "organization" as const,
-    title: "Organization",
-    tagline: "Enterprise threat intelligence",
-    description:
-      "Protect your workforce and brand at scale. Bulk threat scanning, employee security training, brand impersonation monitoring and enterprise-grade analytics — coming to CyberShield soon.",
-    features: ["Employee protection at scale", "Brand & domain monitoring", "Bulk threat analysis", "SIEM integration"],
-    canvasColors: [[167, 139, 250], [139, 92, 246]] as number[][],
-    animationSpeed: 3,
-    accentColor: "#a78bfa",
-    locked: true,
   },
 ];
 
@@ -66,7 +54,7 @@ export default function SelectRolePage() {
   };
 
   return (
-    <div className="w-full max-w-5xl px-4 py-8">
+    <div className="w-full max-w-3xl px-4 py-8">
       {/* Header */}
       <motion.div className="text-center mb-16 space-y-4" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease }}>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -88,7 +76,7 @@ export default function SelectRolePage() {
       </motion.div>
 
       {/* Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {roles.map((role, i) => {
           const isSelected = selected === role.id;
           const isHovered = hovered === role.id;

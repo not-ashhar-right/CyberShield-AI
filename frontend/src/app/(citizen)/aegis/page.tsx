@@ -333,11 +333,11 @@ export default function AegisPage() {
 
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#EC9AA3] to-[#F3B3BA] flex items-center justify-center relative shadow-[0_0_15px_rgba(236,154,163,0.25)] border border-[#EC9AA3]/30">
-                <span className="text-[10px] font-black text-[#050508]">A</span>
+                <span className="text-[10px] font-black text-[#050508]">D</span>
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-bold text-[#F8F8FA] tracking-wide">AEGIS CO-PILOT</span>
+                  <span className="text-xs font-bold text-[#F8F8FA] tracking-wide">DRISHTI CO-PILOT</span>
                   <span className="flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[8px] font-bold uppercase tracking-widest">
                     <span className="w-1 h-1 rounded-full bg-emerald-400 pulse-dot" />
                     Live
@@ -362,10 +362,10 @@ export default function AegisPage() {
                   className="space-y-2 max-w-md"
                 >
                   <h2 className="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-[#EC9AA3] via-[#F3B3BA] to-purple-400 bg-clip-text text-transparent">
-                    Hello, I&apos;m AEGIS.
+                    Hello, I am DRISHTI,
                   </h2>
                   <p className="text-xs text-[#B6B8C4] leading-relaxed">
-                    I am your active cybersecurity copilot. Ask me about system scans, threat reports, or incident procedures.
+                    your AI Cyber Intelligence Assistant. I can help analyze cyber threats, explain scam reports, investigate suspicious activity, and provide cybersecurity guidance.
                   </p>
                 </motion.div>
 
@@ -409,7 +409,7 @@ export default function AegisPage() {
                 >
                   {!isUser && (
                     <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#EC9AA3] to-[#F3B3BA] flex items-center justify-center relative shadow-[0_0_12px_rgba(236,154,163,0.15)] flex-shrink-0 select-none">
-                      <span className="text-[10px] font-black text-[#050508]">A</span>
+                      <span className="text-[10px] font-black text-[#050508]">D</span>
                     </div>
                   )}
 
@@ -459,7 +459,7 @@ export default function AegisPage() {
                 animate={{ opacity: 1, y: 0 }}
               >
                 <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#EC9AA3] to-[#F3B3BA] flex items-center justify-center shadow-[0_0_12px_rgba(236,154,163,0.15)] flex-shrink-0 select-none">
-                  <span className="text-[10px] font-black text-[#050508]">A</span>
+                  <span className="text-[10px] font-black text-[#050508]">D</span>
                 </div>
                 <div className="flex-1 max-w-[85%] space-y-3">
                   {/* Collapsible reasoning panel */}
@@ -471,7 +471,7 @@ export default function AegisPage() {
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#EC9AA3] opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-[#EC9AA3]"></span>
                           </span>
-                          <span>AEGIS is thinking...</span>
+                          <span>DRISHTI is thinking...</span>
                         </div>
                         <span className="transition-transform group-open:rotate-180">
                           <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="6 9 12 15 18 9" /></svg>
@@ -510,7 +510,7 @@ export default function AegisPage() {
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask AEGIS about cybersecurity..."
+                placeholder="Ask DRISHTI about cybersecurity..."
                 className="w-full relative z-10 px-5 py-3 rounded-[15px] text-xs text-[#F8F8FA] bg-[#0c0d14] border border-[rgba(255,255,255,0.08)] placeholder:text-[#B6B8C4]/40 focus:outline-none focus:border-[rgba(236,154,163,0.3)] transition-all duration-300"
                 disabled={sending}
               />

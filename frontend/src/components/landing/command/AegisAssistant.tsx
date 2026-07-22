@@ -42,16 +42,16 @@ export function AegisAssistant({ active }: AegisAssistantProps) {
       transition={{ duration: 0.5, delay: 0.6 }}
       role="status"
       aria-live="polite"
-      aria-label="AEGIS intelligence assistant updates"
+      aria-label="DRISHTI intelligence assistant updates"
     >
       {/* AEGIS avatar */}
       <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#EC9AA3] to-[#F3B3BA] flex items-center justify-center flex-shrink-0 shadow-md shadow-[rgba(236,154,163,0.12)]">
-        <span className="text-[10px] font-bold text-[#050508]">A</span>
+        <span className="text-[10px] font-bold text-[#050508]">D</span>
       </div>
 
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-1">
-          <span className="text-[10px] font-semibold text-[#F8F8FA]">AEGIS</span>
+          <span className="text-[10px] font-semibold text-[#F8F8FA]">DRISHTI</span>
           <div className="w-1 h-1 rounded-full bg-emerald-400" />
           <span className="text-[8px] text-emerald-400">Active</span>
         </div>

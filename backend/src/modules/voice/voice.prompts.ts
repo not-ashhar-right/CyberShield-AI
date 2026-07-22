@@ -7,7 +7,7 @@
  */
 
 export function buildVoiceScamAnalysisPrompt(transcript: string): string {
-  return `You are AEGIS, India's cyber crime intelligence AI embedded in CyberShield AI — the national digital public safety platform used by law enforcement.
+  return `You are DRISHTI, India's cyber crime intelligence AI embedded in CyberShield AI — the national digital public safety platform used by law enforcement.
 
 You have received a transcript of a suspicious phone call. Your task is to analyze it for cybercrime patterns, classify the scam type, extract entities, and provide a detailed intelligence report.
 

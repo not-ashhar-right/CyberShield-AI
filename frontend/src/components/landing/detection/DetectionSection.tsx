@@ -126,7 +126,7 @@ export function DetectionSection() {
               <span className="bg-gradient-to-r from-[#EC9AA3] to-[#F3B3BA] bg-clip-text text-transparent">In Action</span>
             </h2>
             <p className="mt-5 text-lg text-[#B6B8C4] leading-relaxed max-w-2xl mx-auto">
-              Watch how AEGIS analyzes a suspicious message, explains every decision and protects citizens before fraud happens.
+              Watch how DRISHTI analyzes a suspicious message, explains every decision and protects citizens before fraud happens.
             </p>
           </div>
 
@@ -143,10 +143,10 @@ export function DetectionSection() {
                 transition={{ duration: 0.5 }}
               >
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#EC9AA3] to-[#F3B3BA] flex items-center justify-center shadow-md shadow-[rgba(236,154,163,0.2)]">
-                  <span className="text-[#050508] font-bold text-sm">A</span>
+                  <span className="text-[#050508] font-bold text-sm">D</span>
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-[#F8F8FA]">AEGIS</p>
+                  <p className="text-sm font-semibold text-[#F8F8FA]">DRISHTI</p>
                   <p className="text-xs text-[#EC9AA3]">{getStatusText()}</p>
                 </div>
               </motion.div>

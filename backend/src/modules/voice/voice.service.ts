@@ -211,7 +211,7 @@ Return ONLY JSON.
 async function classifyTranscriptWithGemini(transcript: string) {
   const provider = getAIProvider();
   const systemPrompt =
-    "You are AEGIS, India's cyber crime intelligence AI. " +
+    "You are DRISHTI, India's cyber crime intelligence AI. " +
     "Respond with valid JSON only. No markdown, no code blocks.";
 
   const prompt = `You are an expert cybercrime investigation AI.

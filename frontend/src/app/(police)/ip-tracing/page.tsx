@@ -334,7 +334,7 @@ export default function IpTracingPage() {
                         onChange={(e: any) => setListType(e.target.value)}
                         className="w-full px-3 py-2 rounded-lg text-xs font-semibold text-[#F8F8FA] bg-[#050508]/60 border border-[rgba(236,154,163,0.1)] focus:outline-none"
                       >
-                        <option value="blocklist">Blocklist (Force block in Aegis)</option>
+                        <option value="blocklist">Blocklist (Force block in Drishti)</option>
                         <option value="allowlist">Allowlist (Exempt from flags)</option>
                       </select>
                     </div>

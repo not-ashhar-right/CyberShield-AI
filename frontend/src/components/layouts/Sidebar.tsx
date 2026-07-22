@@ -35,7 +35,7 @@ const citizenNav: NavItem[] = [
   { label: "Evidence",     href: "/my-evidence",       icon: <FileIcon /> },
   { label: "History",      href: "/threats",           icon: <ClockIcon /> },
   { label: "Reports",      href: "/reports",           icon: <FileIcon /> },
-  { label: "AEGIS",        href: "/aegis",             icon: <BotIcon /> },
+  { label: "DRISHTI",      href: "/aegis",             icon: <BotIcon /> },
   { label: "Settings",     href: "/citizen-settings",  icon: <GearIcon /> },
 ];
 
@@ -164,7 +164,7 @@ export function Sidebar({ role }: SidebarProps) {
         })}
       </nav>
 
-      {/* ── AEGIS Status Footer ───────────────────────────────────── */}
+      {/* ── DRISHTI Status Footer ───────────────────────────────────── */}
       <div className={`
         px-3.5 py-4 border-t border-[rgba(236,154,163,0.06)]
         ${collapsed ? "flex justify-center" : ""}
@@ -175,7 +175,7 @@ export function Sidebar({ role }: SidebarProps) {
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
           </span>
           {!collapsed && (
-            <span className="text-[10px] text-[#B6B8C4]/50 font-medium">AEGIS Active</span>
+            <span className="text-[10px] text-[#B6B8C4]/50 font-medium">DRISHTI Active</span>
           )}
         </div>
       </div>

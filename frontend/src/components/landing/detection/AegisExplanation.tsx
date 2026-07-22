@@ -23,9 +23,9 @@ export function AegisExplanation({ explanations, visible }: AegisExplanationProp
     >
       <div className="flex items-center gap-2 mb-3">
         <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#EC9AA3] to-[#F3B3BA] flex items-center justify-center shadow-sm">
-          <span className="text-[10px] text-[#050508] font-bold">A</span>
+          <span className="text-[10px] text-[#050508] font-bold">D</span>
         </div>
-        <span className="text-xs font-semibold text-[#F8F8FA]">AEGIS Analysis</span>
+        <span className="text-xs font-semibold text-[#F8F8FA]">DRISHTI Analysis</span>
       </div>
 
       {explanations.map((exp, i) => (

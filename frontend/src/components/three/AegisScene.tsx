@@ -57,7 +57,7 @@ export const AegisScene = memo(function AegisScene({ onHoverChange }: AegisScene
         if (containerRef.current) containerRef.current.style.cursor = hovered ? "grab" : "default";
       }}
       role="img"
-      aria-label="AEGIS — CyberShield AI Guardian 3D model. Drag to rotate, scroll to zoom."
+      aria-label="DRISHTI — CyberShield AI Guardian 3D model. Drag to rotate, scroll to zoom."
       tabIndex={0}
     >
       <Canvas

@@ -67,14 +67,14 @@ export function AegisSection() {
             <div className="order-2 lg:order-1">
               <div ref={titleRef} className={reducedMotion ? "" : "opacity-0"}>
                 <h2 id="aegis-heading" className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#F8F8FA] leading-[1.1]">
-                  Meet{" "}<span className="bg-gradient-to-r from-[#EC9AA3] to-[#F3B3BA] bg-clip-text text-transparent">AEGIS</span>
+                  Meet{" "}<span className="bg-gradient-to-r from-[#EC9AA3] to-[#F3B3BA] bg-clip-text text-transparent">DRISHTI</span>
                 </h2>
                 <p className="mt-2 text-lg font-medium text-[#B6B8C4]">Guardian. Analyzer. Protector.</p>
                 <p className="mt-5 text-base text-[#B6B8C4] leading-relaxed max-w-lg">
-                  AEGIS is the intelligent guardian of CyberShield AI. He continuously monitors cyber threats, analyzes suspicious digital activity and assists citizens and law enforcement with real-time intelligence.
+                  DRISHTI is the intelligent guardian of CyberShield AI. He continuously monitors cyber threats, analyzes suspicious digital activity and assists citizens and law enforcement with real-time intelligence.
                 </p>
                 <p className="mt-3 text-base text-[#B6B8C4] leading-relaxed max-w-lg">
-                  Rather than replacing human judgment, AEGIS augments it with explainable AI, helping uncover hidden fraud networks before they cause harm.
+                  Rather than replacing human judgment, DRISHTI augments it with explainable AI, helping uncover hidden fraud networks before they cause harm.
                 </p>
               </div>
               <div className="mt-10">

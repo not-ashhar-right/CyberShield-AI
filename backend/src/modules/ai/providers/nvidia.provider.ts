@@ -79,7 +79,7 @@ export class NvidiaProvider implements AIProvider {
       return `Your ${context.scanType} scan is safe. No action needed. Continue staying vigilant online.`;
     }
     const prompt = buildCitizenAdvicePrompt(context);
-    return this.analyzeText(prompt, "You are AEGIS, a friendly cybersecurity assistant for Indian citizens.", 256);
+    return this.analyzeText(prompt, "You are DRISHTI, a friendly cybersecurity assistant for Indian citizens.", 256);
   }
 
   async generatePoliceSummary(context: ThreatContext): Promise<string> {

@@ -112,7 +112,7 @@ export function TopBar({ role }: TopBarProps) {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-50" />
               <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
             </span>
-            <span className="text-[9px] text-[#B6B8C4]/60 font-medium">AEGIS Active</span>
+            <span className="text-[9px] text-[#B6B8C4]/60 font-medium">DRISHTI Active</span>
           </div>
 
           {/* Notifications bell */}

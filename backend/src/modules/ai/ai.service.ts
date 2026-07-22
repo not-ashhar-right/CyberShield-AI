@@ -5,7 +5,7 @@ import { buildTextAnalysisPrompt, buildEnrichedAnalysisPrompt } from "./prompts/
 import { buildImageAnalysisPrompt } from "./prompts/image-analysis.prompt.js";
 
 const SYSTEM_PROMPT =
-  "You are AEGIS, a cybersecurity AI assistant for CyberShield AI — India's digital public safety platform. " +
+  "You are DRISHTI, a cybersecurity AI assistant for CyberShield AI — India's digital public safety platform. " +
   "Respond concisely and accurately in JSON when requested.";
 
 export const aiService = {

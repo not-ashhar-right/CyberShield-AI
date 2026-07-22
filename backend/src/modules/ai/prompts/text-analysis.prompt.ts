@@ -111,7 +111,7 @@ export function buildEnrichedAnalysisPrompt(ctx: EnrichedThreatContext): string 
     ? `\n## THREAT EVIDENCE\n${lines.join("\n")}`
     : "";
 
-  return `You are AEGIS, a cybersecurity AI assistant for CyberShield AI.
+  return `You are DRISHTI, a cybersecurity AI assistant for CyberShield AI.
 
 CRITICAL INSTRUCTIONS:
 - You are NOT a phishing detector.
@@ -149,7 +149,7 @@ Respond with ONLY this JSON (no markdown, no extra text):
 }
 
 export function buildThreatExplanationPrompt(context: ThreatContext): string {
-  return `You are AEGIS, CyberShield AI's threat analyst. Explain this ${context.scanType} threat to a citizen.
+  return `You are DRISHTI, CyberShield AI's threat analyst. Explain this ${context.scanType} threat to a citizen.
 
 Risk: ${context.riskScore}/100 (${context.riskLevel})
 Signals: ${context.signals.map((s) => s.label).join(", ")}

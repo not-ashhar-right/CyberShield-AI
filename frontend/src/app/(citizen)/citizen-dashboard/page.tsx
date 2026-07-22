@@ -323,9 +323,9 @@ export default function CitizenDashboard() {
 
         {/* AI Insights Card */}
         <div className="lg:col-span-1">
-          <GlassCard title="AEGIS Insights" icon={<BrainIcon />}
+          <GlassCard title="DRISHTI Insights" icon={<BrainIcon />}
             badge={insights ? "AI" : undefined}
-            action={<Link href="/aegis" className="text-[9px] text-[#EC9AA3]/70 hover:text-[#EC9AA3] transition-colors uppercase tracking-wider">Ask AEGIS →</Link>}
+            action={<Link href="/aegis" className="text-[9px] text-[#EC9AA3]/70 hover:text-[#EC9AA3] transition-colors uppercase tracking-wider">Ask DRISHTI →</Link>}
           >
             {loading ? <SkeletonRows n={4} /> : insights ? (
               <div className="space-y-4">

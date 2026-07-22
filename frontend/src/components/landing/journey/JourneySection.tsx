@@ -14,12 +14,12 @@ const stages = [
   {
     stage: 1, title: "Incoming Threat", label: "Threat Detected",
     description: "A suspicious SMS arrives with a fake banking link, urgency language, and brand impersonation.",
-    details: { input: "SMS from unknown number", decision: "Flag for analysis", output: "Queued for AEGIS" },
+    details: { input: "SMS from unknown number", decision: "Flag for analysis", output: "Queued for DRISHTI" },
     icon: (<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#EC9AA3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>),
   },
   {
     stage: 2, title: "AI Analysis", label: "Threat Intelligence",
-    description: "AEGIS processes the message through NLP, URL intelligence, and pattern matching engines.",
+    description: "DRISHTI processes the message through NLP, URL intelligence, and pattern matching engines.",
     details: { input: "Raw message content", decision: "Multi-model analysis", output: "Threat signals extracted" },
     aegisBubble: "I've analyzed this message.",
     icon: (<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#EC9AA3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4M12 8h.01" /></svg>),
