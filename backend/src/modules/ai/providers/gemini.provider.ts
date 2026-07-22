@@ -73,6 +73,27 @@ export class GeminiProvider implements AIProvider {
     return this.callModel(body);
   }
 
+  async analyzeAudio(audioBase64: string, mimeType: string, prompt: string): Promise<string> {
+    const body = {
+      contents: [
+        {
+          role: "user",
+          parts: [
+            { text: prompt },
+            { inline_data: { mime_type: mimeType, data: audioBase64 } },
+          ],
+        },
+      ],
+      generationConfig: {
+        temperature: aiConfig.temperature,
+        topP: aiConfig.topP,
+        maxOutputTokens: 8192,
+      },
+    };
+
+    return this.callModel(body);
+  }
+
   async generateCitizenAdvice(context: ThreatContext): Promise<string> {
     if (context.riskScore < 30) {
       return `Your ${context.scanType} scan is safe. No action needed. Continue staying vigilant online.`;

@@ -34,6 +34,7 @@ export interface AIExplanationResponse {
 export interface AIProvider {
   analyzeText(prompt: string, systemPrompt?: string): Promise<string>;
   analyzeImage(imageBase64: string, mimeType: string, prompt: string): Promise<string>;
+  analyzeAudio(audioBase64: string, mimeType: string, prompt: string): Promise<string>;
   generateCitizenAdvice(context: ThreatContext): Promise<string>;
   generatePoliceSummary(context: ThreatContext): Promise<string>;
   extractThreatSignals(content: string): Promise<string[]>;

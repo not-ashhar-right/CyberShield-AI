@@ -69,6 +69,10 @@ export class NvidiaProvider implements AIProvider {
     return response;
   }
 
+  async analyzeAudio(_audioBase64: string, _mimeType: string, prompt: string): Promise<string> {
+    return this.analyzeText(prompt);
+  }
+
   async generateCitizenAdvice(context: ThreatContext): Promise<string> {
     // Skip AI entirely for safe/low-risk content — instant response
     if (context.riskScore < 30) {

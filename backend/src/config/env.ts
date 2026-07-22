@@ -79,6 +79,7 @@ const envSchema = z.object({
   // ── Threat Intelligence APIs ─────────────────────────────────────
   GOOGLE_SAFE_BROWSING_API_KEY: z.string().optional(),
   VIRUSTOTAL_API_KEY: z.string().optional(),
+  OPENAI_API_KEY: z.string().optional(),
 });
 
 const parsed = envSchema.safeParse(process.env);

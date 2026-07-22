@@ -15,6 +15,7 @@ import { reportRouter } from "../modules/reports/index.js";
 import { analyticsRouter } from "../modules/analytics/index.js";
 import { searchRouter } from "../modules/search/index.js";
 import { currencyRouter } from "../modules/currency/index.js";
+import { voiceRouter } from "../modules/voice/index.js";
 
 const router = Router();
 
@@ -34,5 +35,6 @@ router.use("/reports", reportRouter);
 router.use("/analytics", analyticsRouter);
 router.use("/search", searchRouter);
 router.use("/currency", currencyRouter);
+router.use("/voice", voiceRouter);
 
 export const apiRouter = router;

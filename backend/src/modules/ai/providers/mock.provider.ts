@@ -78,6 +78,31 @@ export class MockProvider implements AIProvider {
     });
   }
 
+  async analyzeAudio(_audioBase64: string, _mimeType: string, _prompt: string): Promise<string> {
+    return JSON.stringify({
+      transcript: "This is a mock call transcript. Please transfer ₹50,000 immediately to confirm your KYC status or your bank account will be blocked.",
+      language: "english",
+      confidence: 0.95,
+      summary: "A caller impersonating a banking official requests immediate payment under KYC threats.",
+      risk_score: 85,
+      scam_type: "KYC Scam",
+      entities: {
+        phone_numbers: ["9876543210"],
+        upi_ids: ["scammer@ybl"],
+        urls: [],
+        emails: [],
+        bank_accounts: ["1234567890"],
+        names: ["Inspector Kumar"],
+        locations: ["Delhi"],
+        devices: []
+      },
+      scam_indicators: ["Urgency", "Threats"],
+      social_engineering_techniques: ["Fear Tactic", "Authority Impersonation"],
+      recommended_action: "Do not transfer money. Disconnect immediately.",
+      graph_nodes: []
+    });
+  }
+
   async generateCitizenAdvice(context: ThreatContext): Promise<string> {
     const level = context.riskLevel.toLowerCase();
     const advice: Record<string, string> = {
