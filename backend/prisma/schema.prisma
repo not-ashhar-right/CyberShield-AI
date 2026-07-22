@@ -1,0 +1,612 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id                     String           @id @default(uuid())
+  email                  String           @unique
+  passwordHash           String
+  role                   Role             @default(CITIZEN)
+  isVerified             Boolean          @default(false)
+  status                 UserStatus       @default(ACTIVE)
+  lastLogin              DateTime?
+  createdAt              DateTime         @default(now())
+  updatedAt              DateTime         @updatedAt
+  auditLogs              AuditLog[]
+  conversations          Conversation[]
+  evidenceUploads        EvidenceUpload[]
+  assignedIncidents      Incident[]       @relation("IncidentOfficer")
+  createdIncidents       Incident[]       @relation("IncidentCreator")
+  assignedInvestigations Investigation[]  @relation("AssignedOfficer")
+  notifications          Notification[]
+  profile                Profile?
+  sessions               Session[]
+  reports                ThreatReport[]
+  scans                  ThreatScan[]
+
+  @@index([email])
+  @@index([role, status])
+  @@map("users")
+}
+
+model Profile {
+  id          String  @id @default(uuid())
+  userId      String  @unique
+  name        String
+  phone       String?
+  avatar      String?
+  location    String?
+  bio         String?
+  preferences Json    @default("{}")
+  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("profiles")
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  userId       String
+  refreshToken String   @unique
+  userAgent    String?
+  ipAddress    String?
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("sessions")
+}
+
+model ThreatScan {
+  id        String          @id @default(uuid())
+  userId    String
+  scanType  ScanType
+  content   String
+  status    ScanStatus      @default(PENDING)
+  metadata  Json?
+  createdAt DateTime        @default(now())
+  analysis  ThreatAnalysis?
+  user      User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt(sort: Desc)])
+  @@index([scanType, status])
+  @@map("threat_scans")
+}
+
+model ThreatAnalysis {
+  id             String            @id @default(uuid())
+  scanId         String            @unique
+  riskScore      Int
+  riskLevel      RiskLevel
+  summary        String
+  recommendation String
+  confidence     Float
+  aiModel        String            @default("aegis-v1")
+  processingTime Int
+  createdAt      DateTime          @default(now())
+  riskScores     RiskScore?
+  website        SavedWebsite?
+  scan           ThreatScan        @relation(fields: [scanId], references: [id], onDelete: Cascade)
+  indicators     ThreatIndicator[]
+
+  @@index([riskLevel])
+  @@map("threat_analyses")
+}
+
+model ThreatIndicator {
+  id          String         @id @default(uuid())
+  analysisId  String
+  label       String
+  severity    RiskLevel
+  confidence  Float
+  description String
+  indicators  String[]
+  analysis    ThreatAnalysis @relation(fields: [analysisId], references: [id], onDelete: Cascade)
+
+  @@index([analysisId])
+  @@map("threat_indicators")
+}
+
+model RiskScore {
+  id            String         @id @default(uuid())
+  analysisId    String         @unique
+  overall       Int
+  contentRisk   Int
+  sourceRisk    Int
+  patternRisk   Int
+  communityRisk Int
+  factors       String[]
+  calculatedAt  DateTime       @default(now())
+  analysis      ThreatAnalysis @relation(fields: [analysisId], references: [id], onDelete: Cascade)
+
+  @@map("risk_scores")
+}
+
+model SavedWebsite {
+  id            String         @id @default(uuid())
+  analysisId    String         @unique
+  url           String
+  domain        String
+  screenshotUrl String?
+  sslValid      Boolean
+  sslIssuer     String?
+  sslExpiry     DateTime?
+  redirectChain Json?
+  domainAge     String?
+  reputation    Int?
+  lastChecked   DateTime       @default(now())
+  analysis      ThreatAnalysis @relation(fields: [analysisId], references: [id], onDelete: Cascade)
+
+  @@index([domain])
+  @@map("saved_websites")
+}
+
+model ThreatReport {
+  id               String         @id @default(uuid())
+  reportNumber     String         @unique
+  userId           String
+  type             String
+  description      String
+  scammerContact   Json?
+  financialLoss    Json?
+  evidence         String[]
+  status           ReportStatus   @default(SUBMITTED)
+  priority         ReportPriority @default(MEDIUM)
+  assignedTo       String?
+  aiSummary        String?
+  internalNotes    String[]
+  acknowledgement  String?
+  scammerProfileId String?
+  occurredAt       DateTime?
+  resolvedAt       DateTime?
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  investigation    Investigation? @relation("ReportInvestigation")
+  user             User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt(sort: Desc)])
+  @@index([status, priority])
+  @@index([reportNumber])
+  @@map("threat_reports")
+}
+
+model Notification {
+  id        String               @id @default(uuid())
+  userId    String
+  type      NotificationType
+  title     String
+  message   String
+  severity  NotificationSeverity @default(INFO)
+  isRead    Boolean              @default(false)
+  actionUrl String?
+  relatedId String?
+  createdAt DateTime             @default(now())
+  readAt    DateTime?
+  user      User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRead, createdAt(sort: Desc)])
+  @@map("notifications")
+}
+
+model Investigation {
+  id          String              @id @default(uuid())
+  caseId      String              @unique
+  title       String
+  description String?
+  status      InvestigationStatus @default(ACTIVE)
+  confidence  Int                 @default(0)
+  city        String?
+  assignedTo  String?
+  reportId    String?             @unique
+  networkId   String?
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  evidence    Evidence[]
+  officer     User?               @relation("AssignedOfficer", fields: [assignedTo], references: [id])
+  network     FraudNetwork?       @relation(fields: [networkId], references: [id])
+  report      ThreatReport?       @relation("ReportInvestigation", fields: [reportId], references: [id])
+
+  @@index([status, city])
+  @@index([assignedTo])
+  @@map("investigations")
+}
+
+model FraudNetwork {
+  id             String          @id @default(uuid())
+  name           String
+  cities         String[]
+  confidence     Int             @default(0)
+  nodeCount      Int             @default(0)
+  edgeCount      Int             @default(0)
+  status         String          @default("active")
+  metadata       Json?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  evidence       Evidence[]
+  investigations Investigation[]
+
+  @@map("fraud_networks")
+}
+
+model Incident {
+  id                String           @id @default(uuid())
+  incidentId        String           @unique
+  title             String
+  description       String?
+  priority          IncidentPriority @default(MEDIUM)
+  severity          String           @default("medium")
+  status            IncidentStatus   @default(NEW)
+  assignedTo        String?
+  createdBy         String
+  resolutionSummary String?
+  evidenceCount     Int              @default(0)
+  relatedReportIds  String[]
+  relatedScanIds    String[]
+  relatedNodeIds    String[]
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  timeline          IncidentEvent[]
+  officer           User?            @relation("IncidentOfficer", fields: [assignedTo], references: [id])
+  creator           User             @relation("IncidentCreator", fields: [createdBy], references: [id])
+
+  @@index([status, priority])
+  @@index([assignedTo])
+  @@index([createdBy])
+  @@map("incidents")
+}
+
+model IncidentEvent {
+  id          String   @id @default(uuid())
+  incidentId  String
+  eventType   String
+  description String
+  actorId     String?
+  metadata    Json?
+  createdAt   DateTime @default(now())
+  incident    Incident @relation(fields: [incidentId], references: [id], onDelete: Cascade)
+
+  @@index([incidentId, createdAt])
+  @@map("incident_events")
+}
+
+model Evidence {
+  id              String         @id @default(uuid())
+  type            EvidenceType
+  value           String
+  description     String?
+  investigationId String?
+  networkId       String?
+  addedAt         DateTime       @default(now())
+  investigation   Investigation? @relation(fields: [investigationId], references: [id])
+  network         FraudNetwork?  @relation(fields: [networkId], references: [id])
+
+  @@index([type, value])
+  @@index([investigationId])
+  @@map("evidence")
+}
+
+model TimelineEvent {
+  id              String   @id @default(uuid())
+  type            String
+  actorType       String   @default("user")
+  actorId         String?
+  title           String
+  description     String?
+  severity        String   @default("info")
+  metadata        Json?
+  relatedAnalysis String?
+  relatedIncident String?
+  relatedEvidence String?
+  relatedReport   String?
+  createdAt       DateTime @default(now())
+
+  @@index([actorId, createdAt(sort: Desc)])
+  @@index([type, createdAt(sort: Desc)])
+  @@map("timeline_events")
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String?
+  action    String
+  entity    String
+  entityId  String?
+  details   Json?
+  ipAddress String?
+  createdAt DateTime @default(now())
+  user      User?    @relation(fields: [userId], references: [id])
+
+  @@index([userId, createdAt(sort: Desc)])
+  @@index([entity, entityId])
+  @@map("audit_logs")
+}
+
+model SystemSetting {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     Json
+  updatedAt DateTime @updatedAt
+
+  @@map("system_settings")
+}
+
+model EvidenceUpload {
+  id               String   @id @default(uuid())
+  userId           String
+  filename         String
+  mimeType         String
+  fileSize         Int
+  fileHash         String
+  storagePath      String?
+  visionSummary    String?
+  detectedEntities Json?
+  confidence       Float?
+  riskScore        Int?
+  riskLevel        String?
+  analysisId       String?
+  status           String   @default("pending_review")
+  acknowledgement  String?
+  internalNotes    String[]
+  assignedTo       String?
+  createdAt        DateTime @default(now())
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, fileHash])
+  @@index([userId, createdAt(sort: Desc)])
+  @@map("evidence_uploads")
+}
+
+model GraphNode {
+  id            String          @id @default(uuid())
+  entityType    GraphEntityType
+  value         String
+  normalizedVal String
+  occurrences   Int             @default(1)
+  riskLevel     RiskLevel       @default(SAFE)
+  firstSeen     DateTime        @default(now())
+  lastSeen      DateTime        @default(now())
+  metadata      Json?
+  edgesFrom     GraphEdge[]     @relation("EdgeFrom")
+  edgesTo       GraphEdge[]     @relation("EdgeTo")
+
+  @@unique([entityType, normalizedVal])
+  @@index([entityType])
+  @@index([normalizedVal])
+  @@map("graph_nodes")
+}
+
+model GraphEdge {
+  id         String    @id @default(uuid())
+  fromNodeId String
+  toNodeId   String
+  edgeType   String
+  weight     Int       @default(1)
+  scanId     String?
+  createdAt  DateTime  @default(now())
+  fromNode   GraphNode @relation("EdgeFrom", fields: [fromNodeId], references: [id], onDelete: Cascade)
+  toNode     GraphNode @relation("EdgeTo", fields: [toNodeId], references: [id], onDelete: Cascade)
+
+  @@index([fromNodeId])
+  @@index([toNodeId])
+  @@index([scanId])
+  @@map("graph_edges")
+}
+
+model ScammerProfile {
+  id           String    @id @default(uuid())
+  phones       String[]
+  emails       String[]
+  upiIds       String[]
+  domains      String[]
+  urls         String[]
+  walletIds    String[]
+  aliases      String[]
+  threatLevel  RiskLevel @default(LOW)
+  occurrences  Int       @default(1)
+  totalReports Int       @default(1)
+  reportIds    String[]
+  graphNodeIds String[]
+  metadata     Json?
+  firstSeen    DateTime  @default(now())
+  lastSeen     DateTime  @default(now())
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@index([phones])
+  @@index([emails])
+  @@index([upiIds])
+  @@map("scammer_profiles")
+}
+
+model Conversation {
+  id        String    @id @default(uuid())
+  userId    String
+  title     String    @default("New Chat")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages  Message[]
+
+  @@index([userId, updatedAt(sort: Desc)])
+  @@map("conversations")
+}
+
+model Message {
+  id             String       @id @default(uuid())
+  conversationId String
+  role           String
+  content        String
+  metadata       Json?
+  createdAt      DateTime     @default(now())
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId, createdAt])
+  @@map("messages")
+}
+
+model UPIReputation {
+  id            String   @id @default(uuid())
+  upiId         String   @unique
+  normalizedUpi String
+  riskScore     Int      @default(0)
+  reportCount   Int      @default(0)
+  firstSeen     DateTime @default(now())
+  lastSeen      DateTime @default(now())
+  status        String   @default("CLEAN")
+  metadata      Json?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([normalizedUpi])
+  @@map("upi_reputations")
+}
+
+model IPHistory {
+  id        Int      @id @default(autoincrement())
+  ip        String   @unique
+  firstSeen DateTime @default(now())
+  lastSeen  DateTime @default(now())
+  count     Int      @default(1)
+
+  @@map("ip_history")
+}
+
+model IpLookupAudit {
+  id         Int      @id @default(autoincrement())
+  ip         String
+  lookedUpBy String?  @map("looked_up_by")
+  timestamp  DateTime @default(now())
+  riskScore  Int?     @map("risk_score")
+
+  @@map("ip_lookup_audit")
+}
+
+model IpList {
+  id       Int      @id @default(autoincrement())
+  ip       String
+  listType String   @map("list_type")
+  addedBy  String?  @map("added_by")
+  addedAt  DateTime @default(now()) @map("added_at")
+  note     String?
+
+  @@map("ip_lists")
+}
+
+enum Role {
+  CITIZEN
+  POLICE
+  ORGANIZATION
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+  DELETED
+}
+
+enum ScanType {
+  MESSAGE
+  URL
+  QR
+  UPI
+  VOICE
+}
+
+enum ScanStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+enum RiskLevel {
+  SAFE
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum ReportStatus {
+  SUBMITTED
+  UNDER_REVIEW
+  INVESTIGATING
+  ACTION_TAKEN
+  RESOLVED
+  REJECTED
+  ARCHIVED
+}
+
+enum ReportPriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum NotificationType {
+  THREAT_ALERT
+  REPORT_UPDATE
+  SECURITY_TIP
+  SYSTEM
+  SCAN_COMPLETE
+}
+
+enum NotificationSeverity {
+  INFO
+  WARNING
+  CRITICAL
+}
+
+enum InvestigationStatus {
+  ACTIVE
+  MONITORING
+  RESOLVED
+  CRITICAL
+}
+
+enum EvidenceType {
+  PHONE
+  UPI
+  DOMAIN
+  DEVICE
+  COMPLAINT
+  SCREENSHOT
+  AUDIO
+  DOCUMENT
+}
+
+enum IncidentStatus {
+  NEW
+  UNDER_REVIEW
+  INVESTIGATING
+  ACTION_TAKEN
+  RESOLVED
+  ARCHIVED
+}
+
+enum IncidentPriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum GraphEntityType {
+  PHONE
+  EMAIL
+  UPI
+  DOMAIN
+  URL
+  IP
+  BANK_ACCOUNT
+  DEVICE
+  QR_CONTENT
+}
